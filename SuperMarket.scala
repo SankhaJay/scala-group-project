@@ -18,6 +18,6 @@ object SuperMarket{
         var qty=readLine("Enter Quantity: ");
         item1.UpdateItem(code.toInt,qty.toInt)
         println(item1.price+" "+ item1.qty+" "+item1.name+"\n");
-
+        println("This is a test push using a different branch");
     }
 }
