@@ -10,16 +10,21 @@ object SuperMarket{
         }
     }
     def main(args: Array[String]){
-        val item1=new Item(1,500,10,"Soap");
         println(item1.price+" "+ item1.qty+" "+item1.name+"\n");
         enterShop();
         var code=readLine("Enter item code: ");
         var qty=readLine("Enter Quantity: ");
         item1.UpdateItem(code.toInt,qty.toInt)
         println(item1.price+" "+ item1.qty+" "+item1.name+"\n");
-        println("This is a test push using a different branch");
     }
-
+    
+    def closeShop(){
+        println("Shop is closed by the owner!!");
+        System.exit(1);
+    }
+    def newCustomer(){
+        println("This is a new customer");
+    }
     def enterShop(){
         println("###Super Market###");
         println("01.New Customer");
@@ -27,8 +32,8 @@ object SuperMarket{
         println("Enter choice: ");
         var op = scala.io.StdIn.readInt();
         op match{
-            case 1 => NewCustomer();
-            case 2 => CloseShop();
+            case 1 => newCustomer();
+            case 2 => closeShop();
             case _ => println("Enter a valid choice");
         }
         
