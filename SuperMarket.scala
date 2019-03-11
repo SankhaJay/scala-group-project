@@ -10,14 +10,20 @@ object SuperMarket{
         }
     }
     def main(args: Array[String]){
-        println(item1.price+" "+ item1.qty+" "+item1.name+"\n");
+        //println(item1.price+" "+ item1.qty+" "+item1.name+"\n");
+        initShop();
         enterShop();
-        var code=readLine("Enter item code: ");
+
+        /* var code=readLine("Enter item code: ");
         var qty=readLine("Enter Quantity: ");
         item1.UpdateItem(code.toInt,qty.toInt)
-        println(item1.price+" "+ item1.qty+" "+item1.name+"\n");
+        println(item1.price+" "+ item1.qty+" "+item1.name+"\n"); */
     }
-    
+    def initShop(){
+        println("Enter choice");
+        println("01.Add a new item");
+        println("02.Proceed");
+    }
     def closeShop(){
         println("Shop is closed by the owner!!");
         System.exit(1);
@@ -27,9 +33,9 @@ object SuperMarket{
     }
     def enterShop(){
         println("###Super Market###");
+        println("Enter choice");
         println("01.New Customer");
         println("02.Close the shop");
-        println("Enter choice: ");
         var op = scala.io.StdIn.readInt();
         op match{
             case 1 => newCustomer();
