@@ -1,6 +1,7 @@
 object SuperMarket{
     var inum:Int =0;
     var cnum:Int =0;
+    
     class Item(var icode:Int, var iprice:Int,var iqty:Int, var iname:String){
         var code:Int=icode;
         var price:Int =iprice;
@@ -11,6 +12,8 @@ object SuperMarket{
             qty=qty-iqty;
         }
     }
+    val items: Array[Item] = new Array[Item](10);
+
     def main(args: Array[String]){
         //println(item1.price+" "+ item1.qty+" "+item1.name+"\n");
         initShop();
@@ -23,15 +26,18 @@ object SuperMarket{
     }
     def initShop(){
         println(" Welcome!!! ");
-        println("Enter choice");
-        println("01.Add a new item");
-        println("02.Proceed");
-        var op = scala.io.StdIn.readInt();
-        op match{
+        var op:Int = 0;
+        do{
+            println("Enter choice");
+            println("01.Add a new item");
+            println("02.Proceed");
+            op = scala.io.StdIn.readInt();
+            op match{
             case 1 => addNewItem();
             case 2 => enterShop();
             case _ => println("Enter a valid choice");
-        }
+            }
+        }while(op == 1);
     }
     def addNewItem(){
         println("Enter item name");
@@ -41,8 +47,10 @@ object SuperMarket{
         println("Enter remaining item quantity");
         var iqty = scala.io.StdIn.readInt();
         val temp = new Item(inum,iprice,iqty,iname);
+        items(inum) = temp;
         inum = inum + 1;
-        println("An item added");
+        println("An item added succesfully");
+        println(" ");
     }
     def closeShop(){
         println("Shop is closed by the owner!!");
