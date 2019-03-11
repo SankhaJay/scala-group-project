@@ -10,14 +10,38 @@ object SuperMarket{
         }
     }
     def main(args: Array[String]){
-        println("###Super Market###");
-        val item1=new Item(1,500,10,"Soap");
-        println(item1.price+" "+ item1.qty+" "+item1.name+"\n");
+        //println(item1.price+" "+ item1.qty+" "+item1.name+"\n");
+        initShop();
+        enterShop();
 
-        var code=readLine("Enter item code: ");
+        /* var code=readLine("Enter item code: ");
         var qty=readLine("Enter Quantity: ");
         item1.UpdateItem(code.toInt,qty.toInt)
-        println(item1.price+" "+ item1.qty+" "+item1.name+"\n");
-        println("This is a test push using a different branch");
+        println(item1.price+" "+ item1.qty+" "+item1.name+"\n"); */
+    }
+    def initShop(){
+        println("Enter choice");
+        println("01.Add a new item");
+        println("02.Proceed");
+    }
+    def closeShop(){
+        println("Shop is closed by the owner!!");
+        System.exit(1);
+    }
+    def newCustomer(){
+        println("This is a new customer");
+    }
+    def enterShop(){
+        println("###Super Market###");
+        println("Enter choice");
+        println("01.New Customer");
+        println("02.Close the shop");
+        var op = scala.io.StdIn.readInt();
+        op match{
+            case 1 => newCustomer();
+            case 2 => closeShop();
+            case _ => println("Enter a valid choice");
+        }
+        
     }
 }
