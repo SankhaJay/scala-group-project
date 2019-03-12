@@ -8,9 +8,9 @@ object SuperMarket{
         var qty:Int=iqty;
         var name:String=iname;
 
-        /*def UpdateItem(icode:Int, iqty:Int): Unit={
-            qty=qty-iqty;
-        }*/
+        def updateItem(quantity:Int){
+            this.qty=this.qty-quantity;
+        }
     }
     val items: Array[Item] = new Array[Item](N);
 
@@ -39,7 +39,7 @@ object SuperMarket{
             case 3 => System.exit(1);
             case _ => println("Enter a valid choice");
             }
-        }while(op == 1);
+        }while(true);
     }
     def addNewItem(){
         if(inum == N){
@@ -62,25 +62,55 @@ object SuperMarket{
         println("Shop is closed by the owner!!");
         System.exit(1);
     }
-    def buyItem(){
-        println("Enter item code");
-        var icode = scala.io.StdIn.readInt();
-        println("Enter quantity to buy");
-        var iqty = scala.io.StdIn.readInt();
-    }
     def itemList(){
         var i:Int = 0;
         println("\n------Item list------")
         for( i <- 0 to inum-1){
-            println(items(i).icode+"-->"+items(i).iname);
+            println(items(i).code+"-->"+items(i).name);
         }
+    }
+    def isAvailable(icode: Int, iqty: Int){
+        if(items(icode-1).qty<iqty){
+            println("Sorry there is not enough goods in the shop");
+            buyItem();
+        }
+        if(iqty<=0){
+            println("Invalid!! ");
+            buyItem();
+        }
+
+    }
+    def buyItem(){
+        itemList();
+        println("Enter item code to buy");
+        var icode = scala.io.StdIn.readInt();
+        if(icode<0 || icode>inum){
+            println("Enter valid item number");
+        }
+        println("Enter quantity to buy");
+        var iqty = scala.io.StdIn.readInt();
+        isAvailable(icode,iqty);
+        items(icode-1).updateItem(iqty);
+        println("Item bought succesfully");
+    }
+    def customerExit(){
+
     }
     def newCustomer(){
         cnum = cnum + 1;
-        itemList();
-        println("Enter choice");
-        println("01.Buy items");
-        println("02.Issue Bill");
+        do{
+            println("Enter choice");
+            println("01.Buy items");
+            println("02.Issue Bill");
+            println("03.Exit")
+            var op = scala.io.StdIn.readInt();
+            op match{
+                case 1 => buyItem();
+            /*  case 2 => issueBill();*/
+                case 3 => enterShop();
+                case _ => println("Enter a valid choice");
+            }
+        }while(true)
     }
     def enterShop(){
         println("###Super Market###");
