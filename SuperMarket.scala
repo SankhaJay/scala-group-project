@@ -62,9 +62,10 @@ object SuperMarket{
     }
     def itemList(){
         var i:Int = 0;
-        println("\n------Item list------")
+        println("\n----------Item list----------")
         for( i <- 0 to inum-1){
-            println(items(i).code+"-->"+items(i).name);
+			println("Item code\tItem name\tQuantity");
+            println(items(i).code+"\t\t"+items(i).name+"\t\t"+items(i).qty);
         }
     }
     def isEmpty(){
@@ -79,9 +80,10 @@ object SuperMarket{
             closeShop();
         }
     }
+
     def isAvailable(icode: Int, iqty: Int){
         if(items(icode-1).qty<iqty){
-            println("Sorry there is not enough goods in the shop");
+            println("********Sorry there is not enough goods in the shop********\n");
             buyItem();
         }
         if(iqty<=0){
@@ -89,17 +91,17 @@ object SuperMarket{
             buyItem();
         }
     }
+	
     def buyItem(){
         itemList();
         println("Enter item code to buy");
         var icode = scala.io.StdIn.readInt();
         if(icode<0 || icode>inum){
-            println("Enter valid item number");
+            println("*****Enter valid item number******\n");
             buyItem();
         }
         println("Enter quantity to buy");
         var iqty = scala.io.StdIn.readInt();
-        //isEmpty();
         isAvailable(icode,iqty);
         items(icode-1).updateItem(iqty);
         noitem = noitem + 1;
@@ -109,16 +111,17 @@ object SuperMarket{
     }
     def issueBill(){
         if(noitem == 0){
-            println("Buy some products");
+            println("*****Buy some products*****\n");
+			cid = cid - 1;
             newCustomer();
         }
         println("----Bill----\n");
         println("Bill no : "+cid);
-        println("Item No\tQuantity price");
+        println("Item_No\tQuantity price");
         elements.keys.foreach{ i =>  
-        println(i+1+"\t" + elements(i)+"\t   "+elements(i) * items(i).iprice);
+        println(i+1+"\t" + elements(i)+"\t "+elements(i) * items(i).iprice);
         }
-        println("Total : \n"+total);
+        println("Total : "+total+"\n");
         elements.clear;
         noitem = 0;
         total = 0;
@@ -140,7 +143,7 @@ object SuperMarket{
         }while(true);
     }
     def enterShop(){
-        println("###Super Market###");
+        println("\n###Super Market###");
         println("Enter choice");
         println("01.New Customer");
         println("02.Close the shop");
