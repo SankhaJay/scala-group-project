@@ -1,3 +1,5 @@
+import util.control.Breaks._
+
 object SuperMarket{
     var inum:Int =0;
     var cid:Int =0;
@@ -65,6 +67,18 @@ object SuperMarket{
             println(items(i).code+"-->"+items(i).name);
         }
     }
+    def isEmpty(){
+        var flag:Int = 0;
+        for( i <- 0 to inum-1){
+            if(items(i).qty != 0){
+            flag = 1;
+            } 
+        }
+        if(flag == 0){
+            println("Shop is closed..nothing to buy");
+            closeShop();
+        }
+    }
     def isAvailable(icode: Int, iqty: Int){
         if(items(icode-1).qty<iqty){
             println("Sorry there is not enough goods in the shop");
@@ -74,7 +88,6 @@ object SuperMarket{
             println("Invalid!! ");
             buyItem();
         }
-
     }
     def buyItem(){
         itemList();
@@ -82,9 +95,11 @@ object SuperMarket{
         var icode = scala.io.StdIn.readInt();
         if(icode<0 || icode>inum){
             println("Enter valid item number");
+            buyItem();
         }
         println("Enter quantity to buy");
         var iqty = scala.io.StdIn.readInt();
+        //isEmpty();
         isAvailable(icode,iqty);
         items(icode-1).updateItem(iqty);
         noitem = noitem + 1;
@@ -111,6 +126,7 @@ object SuperMarket{
    }
     def newCustomer(){
         cid = cid + 1;
+        isEmpty();
         do{
             println("Enter choice");
             println("01.Buy items");
